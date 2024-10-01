@@ -4,8 +4,8 @@ function solution(arr) {
     if(arr.length !== 1){
         num = Math.min(...arr);
         arr = arr.filter(x => x !== num);
+        return arr;
     }else{
         return [-1];
-    }
-    return arr;
+    }   
 }
