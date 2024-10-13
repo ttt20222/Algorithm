@@ -1,18 +1,20 @@
 function solution(players, callings) {
-    const dict = players.reduce((acc,cur,index) => {
-       acc[cur] = index 
-        return acc
-    },{})
+    const hash = new Map();
     
-    callings.forEach((player) => {
-        const curPlayerIndex = dict[player]
-        const nextPlayer = players[curPlayerIndex - 1]
-        players[curPlayerIndex - 1] = player
-        players[curPlayerIndex] = nextPlayer
-   
-        dict[player] -= 1
-        dict[nextPlayer] += 1
-    })
+    players.forEach((name, index) => {
+        hash.set(name, index);
+    });
     
-    return players
+    callings.forEach((name) => {
+        
+        const currentIdx = hash.get(name);
+        const frontPlayer = players[currentIdx - 1];
+        
+        [players[currentIdx], players[currentIdx-1]] = [players[currentIdx-1] , players[currentIdx]];
+        
+        hash.set(name,  hash.get(name)-1);
+        hash.set(frontPlayer, hash.get(name)+1);
+    });
+    
+    return players;
 }
